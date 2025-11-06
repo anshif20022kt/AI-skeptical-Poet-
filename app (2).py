@@ -1,9 +1,11 @@
+%%writefile app.py
 import google.generativeai as genai
 import textwrap
 import streamlit as st
+from google.colab import userdata
 
 # Configure Gemini securely
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+genai.configure(api_key=userdata.get("GEMINI_API_KEY"))
 
 # Kelly's poetic, skeptical personality prompt
 KELLY_SYSTEM_PROMPT = """
@@ -59,8 +61,8 @@ if st.button("Ask Kelly") and user_input:
 
 # Display chat history
 for chat in reversed(st.session_state.history):
-    st.markdown(f"🧍 You:** {chat['user']}")
-    st.markdown(f"🤖 Kelly:\n\n{chat['kelly']}")
+    st.markdown(f"**🧍 You:** {chat['user']}")
+    st.markdown(f"**🤖 Kelly:**\n\n{chat['kelly']}")
     st.markdown("---")
 
-st.markdown("✨ Developed with Gemini and Streamlit")
+st.markdown("✨ *Developed with Gemini and Streamlit*")
